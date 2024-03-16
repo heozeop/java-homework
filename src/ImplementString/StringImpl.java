@@ -2,6 +2,8 @@ package ImplementString;
 
 import static java.util.Arrays.copyOfRange;
 
+import java.util.Objects;
+
 public class StringImpl implements CharSequence {
 
     private char[] string;
@@ -37,12 +39,18 @@ public class StringImpl implements CharSequence {
         int filteredIndex = 0;
 
         for (char c : string) {
-            if (isUpperCase == Character.isUpperCase(c)) {
-                filtered[filteredIndex++] = c;
+            if(Character.isWhitespace(c) || isUpperCase != Character.isUpperCase(c)) {
+                continue;
             }
+
+            filtered[filteredIndex++] = c;
         }
 
         return new StringImpl(copyOfRange(filtered, 0, filteredIndex));
+    }
 
+    @Override
+    public String toString() {
+        return new String(string);
     }
 }
